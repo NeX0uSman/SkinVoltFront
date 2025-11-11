@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import cl from './ClientPage.module.css';
 import { Range } from 'react-range';
 import ClientPageTopCatalog from '../ClientPageTopBars/ClientPageTopCatalog';
-import ItemCard from '../itemCard/itemCard';
+import ItemCard from '../itemCard/ItemCard.jsx';
 import { InventoryContext } from '../Context/inventoryContext';
 import { useContext } from 'react';
 
