@@ -1,0 +1,135 @@
+/* Обновленные стили */
+.wholePage {
+    position: relative;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.upperText {
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px;
+    z-index: 3;
+    transition: all 0.3s ease;
+    /* Поверх эффектов */
+}
+
+.upperText:hover {
+    transform: scale(1.1);
+}
+
+.formDiv {
+    background: rgba(20, 20, 20, 0.8);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(255 255 255 / 0.1);
+    z-index: 3;
+    /* Поверх эффектов */
+    width: 320px;
+    color: white;
+}
+
+.registerButton {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.registerButton button {
+    border: none;
+    width: 130px;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    background-color: rgb(43, 42, 42);
+    transition: all 0.3s ease;
+}
+
+.registerButton button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.signInDiv {
+    color: white;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.signInDiv button {
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid #a5a5a5;
+    transition: all 0.3s ease;
+    margin-left: 4px;
+}
+
+.signInDiv button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+
+input {
+    color: black;
+    transition: all 0.2s ease;
+    margin: 2px;
+}
+
+input:focus {
+    transform: scale(1.05);
+}
+
+.error {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(-4px);
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.siriWrapper {
+    position: absolute;
+    bottom: -113px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    /* Под формой */
+}
+
+.siriCircle {
+    transform-origin: center bottom;
+    animation: rotate 12s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

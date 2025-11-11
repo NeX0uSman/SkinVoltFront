@@ -1,0 +1,151 @@
+* {
+  font-family: "Michroma", sans-serif;
+  margin: 0;
+}
+
+
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.app_container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  margin: 10px;
+  gap: 20px;
+}
+
+
+.notes_grid {
+  width: 86%;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.notes_grid>div {
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+
+  color: white;
+}
+
+h2 {
+  margin: 0;
+}
+
+.note_form {
+  width: 14%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  align-self: flex-start;
+}
+
+textarea,
+input {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.note_form button {
+  border-radius: 5px;
+  background-color: rgb(64, 154, 184);
+  border: none;
+  padding: 10px;
+}
+
+.note_form button:hover {
+  background-color: rgb(106, 175, 198);
+  cursor: pointer;
+}
+
+.upper_note {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.upper_note1 {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.upper_note1 p {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.wear {
+  margin-top: 0px;
+  color: #a5a5a5;
+  font-size: 13px;
+}
+
+.downer_note {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.notes_header button {
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 45px;
+}
+
+.buttons button {
+  border-radius: 5px;
+  background-color: rgb(43, 45, 46);
+  border: none;
+  padding: 10px;
+  width: 37%;
+  height: auto;
+  transition: all 0.2s ease-in-out;
+  color: white;
+}
+
+.buttons button:hover {
+  background-color: rgb(56, 54, 54);
+  transform: scale(1.07);
+  transform: translateY(-7px);
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  color: black;
+}

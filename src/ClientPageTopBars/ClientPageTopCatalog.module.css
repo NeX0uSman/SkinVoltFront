@@ -1,0 +1,173 @@
+.column_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 99%;
+    text-align: center;
+    background: rgba(10, 10, 10, 0.6);
+    /* чуть более тёмный фон */
+    backdrop-filter: saturate(180%) blur(15px);
+    /* размытый и насыщенный фон */
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+    border-radius: 16px;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    /* чуть ярче */
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.8),
+        /* глубокая тень */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* внутренний светящийся обвод */
+    color: #cce7ff;
+    /* лёгкий холодный голубой текст */
+    transition: background 0.3s ease;
+    gap: 10px;
+}
+
+.column_container:hover {
+    background: rgba(10, 10, 10, 0.75);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.9),
+        inset 0 0 0 1.5px rgba(255, 255, 255, 0.18);
+    color: #e0f0ff;
+}
+
+.category_row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+
+.category_row>div {
+    padding: 5px;
+    color: white;
+    text-align: center;
+    height: 100%;
+    cursor: pointer;
+    width: 7.6%;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.category_row>div:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category_row>div i {
+    transition: all 0.3s ease;
+}
+
+.category_row>div.active i {
+    transform: rotate(180deg);
+}
+
+.skins_row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    background-color: transparent;
+    border-radius: 9px;
+    gap: 10px;
+    padding: 10px;
+    border: transparent;
+}
+
+.skins_row div {
+    padding: 10px;
+    color: white;
+    text-align: center;
+    max-height: 200px;
+    cursor: pointer;
+    width: 170px;
+    border-radius: 6px;
+}
+
+.skins_row img {
+    width: 100%;
+    height: 140px;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+.price_text {
+    font-size: 10px;
+    color: #a39d9d;
+}
+
+.skin_container {
+    transition: all 0.3s ease;
+}
+
+.skin_container img {
+    transition: all 0.3s ease;
+}
+
+.skin_container img:hover {
+    transform: translateY(-6px);
+}
+
+.skin_container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 18px rgba(105, 105, 105, 0.6);
+}
+
+.weapon_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 6px 11px;
+    gap: 12px;
+    width: 96%;
+    background: rgba(30, 30, 40, 0.3);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.6),
+        inset 0 0 0.5px rgba(255, 255, 255, 0.08);
+    color: #f0f4ff;
+    transition: all 0.3s ease-in-out;
+}
+
+.weapon_container:hover {
+    background: rgba(40, 40, 50, 0.5);
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.8),
+        inset 0 0 1px rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.weapon_container div {
+    padding: 5px 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.weapon_container div:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+}
+
+.weapon_container div.active {
+    background-color: #5555559f;
+}

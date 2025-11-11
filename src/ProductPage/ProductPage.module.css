@@ -1,0 +1,48 @@
+.productPage {
+    height: 95vh;
+    color: white;
+}
+
+.skinInfo {
+    margin-top: 150px;
+    height: 65vh;
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 65%;
+}
+
+.leftSide img {
+    width: 94%;
+    height: 50vh;
+    object-fit: contain;
+    background-color: rgba(39, 39, 39, 0.3);
+    border-radius: 10px;
+    margin-left: 80px;
+    box-shadow: 0 10px 8px rgba(22, 22, 22, 0.2);
+}
+
+.leftSide h2 {
+    font-size: 2.5rem;
+    margin-left: 50px;
+}
+
+.rarityRow {
+    width: 80%;
+    height: 10px;
+    border-radius: 10px;
+    margin-left: 185px;
+}
+
+.skinCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 35%;
+}

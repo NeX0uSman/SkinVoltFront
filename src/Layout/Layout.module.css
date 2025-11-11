@@ -1,0 +1,228 @@
+.Layout {
+    position: relative;
+    min-height: 100vh;
+}
+
+.navBar {
+    top: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 0px 0px 5px 5px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+}
+
+.navBar_inner {
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    width: 100%;
+    padding: 30px;
+}
+
+.navBar_inner button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    width: 22%;
+    border-color: black;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    ;
+}
+
+.navBar_inner button:hover {
+    transform: scale(1.05);
+    transform: translateY(-3px);
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 34px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 2px 2px 2px white;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.bigLetter {
+    font-size: 40px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    text-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.userInfo button {
+    width: 100%;
+    padding: 3px;
+}
+
+@keyframes rainbowShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.sign_up {
+    border: 2px solid white;
+    padding: 3px;
+    background: linear-gradient(270deg, #ff0000, #ffa500, #ffff00, #008000, #0000ff, #4b0082, #ee82ee);
+    background-size: 1400% 1400%;
+    animation: rainbowShift 10s ease infinite;
+}
+
+main {
+    margin-top: 60px;
+}
+
+footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    position: relative;
+    box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.3);
+    padding: 20px;
+}
+
+.footer_left {
+    width: 40%;
+    height: 100%;
+}
+
+.footer_left p {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.footer_left h1 {
+    font-size: 45px;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+.footer_left button {
+    background: orange;
+    color: black;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s;
+}
+
+.footer_left button:hover {
+    transform: scale(1.05);
+    background: #ffae42;
+}
+
+.footer_left_inner {
+    padding-left: 50px;
+    padding-top: 40px;
+}
+
+.footer_right {
+    width: 60%;
+    height: 100%;
+    padding-top: 80px;
+}
+
+sup {
+    font-size: 11px;
+    color: gray
+}
+
+.footer_section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.footer_upper {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.footer_upper h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.footer_upper p {
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.footer_upper p:hover {
+    color: orange;
+}
+
+.socials {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: end;
+    width: 90%;
+}
+
+.socials i {
+    color: white;
+    cursor: pointer;
+    transition: color, transform 0.3s ease;
+}
+
+.socials i:hover {
+    color: orange;
+    transform: scale(1.2);
+}
+
+.logOutBtn {
+    border: 2px solid white;
+    padding: 3px;
+    background: linear-gradient(270deg, #ff0000, #ffa500, #ffff00, #008000, #0000ff, #4b0082, #ee82ee);
+    background-size: 1400% 1400%;
+    animation: rainbowShift 10s ease infinite;
+    border-radius: 10px;
+    border-color:1px solid black
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
