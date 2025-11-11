@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import cl from './App.module.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ItemCard from './itemCard/itemCard.jsx';
+import ItemCard from './itemCard/ItemCard.jsx';
 
 
 function App() {
