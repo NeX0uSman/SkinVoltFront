@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import cl from './itemCard.module.css'
+import cl from './ItemCard.module.css'
 import { useNavigate } from 'react-router-dom';
 import { InventoryContext } from '../Context/inventoryContext';
 
