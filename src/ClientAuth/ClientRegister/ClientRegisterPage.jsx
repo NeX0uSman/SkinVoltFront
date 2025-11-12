@@ -9,7 +9,7 @@ const HEIGHT = 800;
 
 const strokeWidth = 1.5;
 const radius = WIDTH / 2 - strokeWidth - 10;
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const SiriEffect = () => {
   return (
     <div className={cl.siriWrapper}>
@@ -67,7 +67,7 @@ const ClientRegisterPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch('https://skinvoltserver.onrender.com/client/register/send', {
+      const res = await fetch(`${apiUrl}/client/register/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

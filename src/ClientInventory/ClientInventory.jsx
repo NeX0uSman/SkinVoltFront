@@ -10,7 +10,7 @@ const ClientInventory = () => {
   const { userSkins, List, itemColourDefiner } = useContext(InventoryContext);
   const [activeListWindow, setActiveListWindow] = useState(null);
   const [price, setPrice] = useState(null)
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const reccomendedPrice = (saleHistory) => {
     const now = new Date()
     const threeDaysAgo = new Date(now)
@@ -51,7 +51,7 @@ const ClientInventory = () => {
                     <h2> {activeListWindow.name}</h2>
                   </div>
                   <div className={cl.skinImage}>
-                    <img style={itemColourDefiner(activeListWindow.rarity)} src={`https://skinvoltserver.onrender.com${activeListWindow.imageUrl}`} alt="skinImage" />
+                    <img style={itemColourDefiner(activeListWindow.rarity)} src={`${apiUrl}${activeListWindow.imageUrl}`} alt="skinImage" />
                   </div>
                   <p>{activeListWindow.float}</p>
                   <div className={cl.saleList}>
@@ -59,7 +59,7 @@ const ClientInventory = () => {
                   </div>
                 </div>
                 <div className={cl.listinGraphAndInputs}>
-                  <div className={cl.saleGraph} style={{width:'400px', height:'250px'}}>
+                  <div className={cl.saleGraph} style={{ width: '400px', height: '250px' }}>
                     <p>Latest Sales</p>
                     <SaleLineChart saleHistory={activeListWindow.saleHistory} />
                   </div>

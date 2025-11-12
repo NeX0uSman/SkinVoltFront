@@ -8,7 +8,7 @@ const ImageCarousel = ({ images }) => {
     const dragging = useRef(false);
     const lastX = useRef(0);
     const frame = useRef(null);
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const animate = () => {
             if (!dragging.current) {
@@ -69,7 +69,7 @@ const ImageCarousel = ({ images }) => {
                                 opacity: isBack ? 0.5 : 1,
                             }}
                         >
-                            <img src={`https://skinvoltserver.onrender.com${img.imageUrl}`} alt={`Carousel item ${index}`} />
+                            <img src={`${apiUrl}${img.imageUrl}`} alt={`Carousel item ${index}`} />
                         </div>
                     )
                 })}

@@ -12,13 +12,14 @@ const Layout = () => {
     const [userSkins, setUserSkins] = useState([]);
     const [allSkins, setAllSkins] = useState([]);
     const [userData, setUserData] = useState({});
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const fetchUserData = async () => {
             const token = localStorage.getItem('clientToken');
             if (!token) return;
 
             try {
-                const res = await fetch('https://skinvoltserver.onrender.com/client/me', {
+                const res = await fetch(`${apiUrl}/client/me`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -38,7 +39,7 @@ const Layout = () => {
                 setUserData(data);
 
                 if (data.inventory && data.inventory.length > 0) {
-                    const resSkins = await fetch('https://skinvoltserver.onrender.com/skins/getByIds', {
+                    const resSkins = await fetch(`${apiUrl}/skins/getByIds`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ ids: data.inventory })
@@ -61,7 +62,7 @@ const Layout = () => {
         try {
             const res = await buyForm(skinId, salePrice);
             if (res.success && res) {
-                const userRes = await fetch('https://skinvoltserver.onrender.com/client/me', {
+                const userRes = await fetch(`${apiUrl}/client/me`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('clientToken')}`
@@ -91,7 +92,7 @@ const Layout = () => {
 
     const unList = async (skinId) => {
         try {
-            const res = await fetch(`https://skinvoltserver.onrender.com/skins/unlist/${skinId}`, {
+            const res = await fetch(`${apiUrl}/skins/unlist/${skinId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('clientToken')}`
@@ -106,7 +107,7 @@ const Layout = () => {
 
     const List = async (skinId, skinPrice) => {
         try {
-            const res = await fetch(`https://skinvoltserver.onrender.com/skins/list/${skinId}`, {
+            const res = await fetch(`${apiUrl}/skins/list/${skinId}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('clientToken')}`,

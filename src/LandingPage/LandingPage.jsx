@@ -18,7 +18,7 @@ const LandingPage = () => {
     const cardRefs = useRef([]);
     const swiperRef = useRef(null);
     const navigate = useNavigate('')
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const reviews = [
         {
             text: "SkinVolt made it super easy to track my favorite skins. The filters are powerful and save me tons of time.",
@@ -66,7 +66,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchRandomSkins = async () => {
             try {
-                const res = await fetch('https://skinvoltserver.onrender.com/random');
+                const res = await fetch(`${apiUrl}/random`);
                 const data = await res.json();
                 setRandomSkins(data);
                 swiperRef.current?.update();
@@ -78,7 +78,7 @@ const LandingPage = () => {
     }, []);
     console.log(randomSkins);
 
-    
+
 
 
     useLayoutEffect(() => {
@@ -199,7 +199,7 @@ const LandingPage = () => {
                                 <SwiperSlide key={index}>
                                     <div className={cl.skin_card}>
                                         <img
-                                            src={`https://skinvoltserver.onrender.com${skin.imageUrl}`}
+                                            src={`${apiUrl}${skin.imageUrl}`}
                                             alt={`Skin ${index}`}
                                         />
                                         <div style={{ textAlign: 'center' }}>

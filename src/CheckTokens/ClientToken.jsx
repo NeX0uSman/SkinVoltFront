@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 const ClientRoute = ({ children }) => {
     const [verified, setVerified] = useState(null)
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const verifyToken = async () => {
             const clientToken = localStorage.getItem('clientToken');
@@ -13,7 +13,7 @@ const ClientRoute = ({ children }) => {
             }
 
             try {
-                const res = await fetch('https://skinvoltserver.onrender.com/client/verify', {
+                const res = await fetch(`${apiUrl}/client/verify`, {
                     headers: { Authorization: `Bearer ${clientToken}` }
                 })
                 setVerified(res.ok)

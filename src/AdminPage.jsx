@@ -9,9 +9,9 @@ function App() {
 
 
   const navigate = useNavigate('')
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
-    fetch('https://skinvoltserver.onrender.com/skins/all')
+    fetch(`${apiUrl}/skins/all`)
       .then(res => res.json())
       .then(data => setNotes(data))
       .catch(console.error)
@@ -42,7 +42,7 @@ function App() {
 
 
     try {
-      const res = await fetch('https://skinvoltserver.onrender.com/skins/upload', {
+      const res = await fetch(`${apiUrl}/skins/upload`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('clientToken')}`
@@ -64,7 +64,7 @@ function App() {
 
   const deleteNote = async (id) => {
     try {
-      const res = await fetch(`https://skinvoltserver.onrender.com/skins/delete/${id}`, {
+      const res = await fetch(`${apiUrl}/skins/delete/${id}`, {
         method: 'DELETE',
       })
       if (res.ok) {

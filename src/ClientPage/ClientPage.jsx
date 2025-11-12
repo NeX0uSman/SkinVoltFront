@@ -10,7 +10,7 @@ import { InventoryContext } from '../Context/inventoryContext';
 import { useContext } from 'react';
 
 const ClientPage = () => {
-  const {allSkins, setAllSkins} = useContext(InventoryContext);
+  const { allSkins, setAllSkins } = useContext(InventoryContext);
 
   const [searchBar, setSearchBar] = useState('');
 
@@ -29,7 +29,7 @@ const ClientPage = () => {
   const [desiredCollection, setDesiredCollection] = useState('');
 
   const [desiredSpecial, setDesiredSpecial] = useState([]);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const FLOAT_MIN = 0.00;
   const FLOAT_MAX = 1.00;
   const FLOAT_STEP = 0.0001;
@@ -113,7 +113,7 @@ const ClientPage = () => {
 
   useEffect(() => {
     const fetchAllSkins = () => {
-      fetch('https://skinvoltserver.onrender.com/skins/all')
+      fetch(`${apiUrl}/skins/all`)
         .then(res => res.json())
         .then(data => setAllSkins(data))
         .catch(err => console.error('Error fetching data', err));

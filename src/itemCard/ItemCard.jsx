@@ -10,7 +10,7 @@ const ItemCard = ({ skin, key }) => {
         skin.ownerId?._id?.toString?.() === userData?._id?.toString?.() ||
         skin.ownerId?.toString?.() === userData?._id?.toString?.()
     );
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const checkWhichSpecial = (special) => {
         if (special == 'StatTrak™') {
             return {
@@ -42,7 +42,7 @@ const ItemCard = ({ skin, key }) => {
                     </div>
                     <p className={cl.wear}>{skin.wear}</p>
                 </div>
-                {skin.imageUrl && <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
+                {skin.imageUrl && <img src={`${apiUrl}${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
             </div>
             <div className={cl.downer_note}>
                 <div className={cl.price_block}>
@@ -55,7 +55,7 @@ const ItemCard = ({ skin, key }) => {
                 <button onClick={() => { navigate(`/client/product/${skin._id}`) }}>View</button><span style={{ fontSize: '15px' }}></span>
                 {isOwner ?
                     <>
-                        <button style={{backgroundColor:'black'}} onClick={() => unList(skin._id)}>Unlist</button>
+                        <button style={{ backgroundColor: 'black' }} onClick={() => unList(skin._id)}>Unlist</button>
                     </>
                     :
                     <>

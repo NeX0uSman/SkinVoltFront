@@ -3,7 +3,7 @@ import cl from './AdminLoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const COLORS = ["#ffffffff", "#7c7c7cff", "#000000ff",];
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const WIDTH = window.innerWidth * 0.6;
 const HEIGHT = 800;
 
@@ -66,7 +66,7 @@ const ClientLoginPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch('https://skinvoltserver.onrender.com/client/login/send', {
+      const res = await fetch(`${apiUrl}/client/login/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import cl from './ClientPageTopCatalog.module.css'
 
 const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCategory }) => {
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const [data, setData] = useState([])
     const [open, setOpen] = useState(false)
     const [selectedWeapon, setSelectedWeapon] = useState(null)
@@ -25,7 +25,7 @@ const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCateg
     console.log(open)
     useEffect(() => {
         if (!onSelectedCategory) return
-        fetch(`https://skinvoltserver.onrender.com/skins/category/${onSelectedCategory}`)
+        fetch(`${apiUrl}/skins/category/${onSelectedCategory}`)
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => console.log(err))
@@ -123,7 +123,7 @@ const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCateg
                         ) : (
                             filteredData.map((skin, index) => (
                                 <div key={index} className={cl.skin_container} style={itemColourDefiner(skin.rarity)}>
-                                    <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin-image" />
+                                    <img src={`${apiUrl}${skin.imageUrl}`} alt="skin-image" />
                                     <p className={cl.weapon_text}>{skin.weapon} | {skin.name}</p>
                                     <p className={cl.price_text}>{skin.price}$</p>
                                 </div>

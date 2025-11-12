@@ -3,14 +3,14 @@ import { Navigate } from 'react-router-dom';
 
 const AdminRoute = ({ children }) => {
     const [verified, setVerified] = useState(null)
-
+const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const verifyToken = async () => {
             const adminToken = localStorage.getItem('adminToken');
             if (!adminToken) return;
 
             try {
-                const res = await fetch('https://skinvoltserver.onrender.com/admin/verify', {
+                const res = await fetch(`${apiUrl}/admin/verify`, {
                     headers: { Authorization: `Bearer ${adminToken}` }
                 })
                 setVerified(res.ok)

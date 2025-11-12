@@ -5,6 +5,7 @@ import { InventoryContext } from '../Context/inventoryContext';
 
 const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWindow }) => {
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
     const { buyItem, userData, setUserData, unList, List, itemColourDefiner } = useContext(InventoryContext);
     const isOwner = (
         skin.ownerId?._id?.toString?.() === userData?._id?.toString?.() ||
@@ -48,7 +49,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                         </div>
                         <p className={cl.wear}>{skin.wear}</p>
                     </div>
-                    {skin.imageUrl && <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
+                    {skin.imageUrl && <img src={`${apiUrl}${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
                 </div>
                 <div className={cl.downer_note}>
                     <div className={cl.price_block}>
