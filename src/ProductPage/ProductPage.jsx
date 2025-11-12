@@ -8,7 +8,7 @@ const ProductPage = () => {
     const { id } = useParams()
     const [skin, setSkin] = useState()
     useEffect(() => {
-        fetch(`http://localhost:3000/skins/${id}`)
+        fetch(`https://skinvoltserver.onrender.com/skins/${id}`)
             .then(res => res.json())
             .then(data => setSkin(data))
     }, [id])
@@ -69,7 +69,7 @@ const ProductPage = () => {
                 <div className={cl.skinInfo}>
                     <div className={cl.leftSide}>
                         <h2>{skin.weapon} | {skin.name}</h2>
-                        {skin.imageUrl && <img src={`http://localhost:3000${skin.imageUrl}`} alt="skin" width="300" />}
+                        {skin.imageUrl && <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin" width="300" />}
                         <div className={cl.rarityRow} style={itemColourDefiner(skin.rarity)}></div>
                     </div>
                     <div className={cl.skinCard}>

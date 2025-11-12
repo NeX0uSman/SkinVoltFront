@@ -42,7 +42,7 @@ const ItemCard = ({ skin, key }) => {
                     </div>
                     <p className={cl.wear}>{skin.wear}</p>
                 </div>
-                {skin.imageUrl && <img src={`http://localhost:3000${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
+                {skin.imageUrl && <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin" className={cl.card_image} />}
             </div>
             <div className={cl.downer_note}>
                 <div className={cl.price_block}>

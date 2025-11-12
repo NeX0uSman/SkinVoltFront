@@ -1,6 +1,6 @@
 const buyForm = async (skinId, salePrice) => {
 try {
-    const res = await fetch('http://localhost:3000/skins/purchase', {
+    const res = await fetch('https://skinvoltserver.onrender.com/skins/purchase', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

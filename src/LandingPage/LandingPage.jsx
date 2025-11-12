@@ -66,7 +66,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchRandomSkins = async () => {
             try {
-                const res = await fetch('http://localhost:3000/random');
+                const res = await fetch('https://skinvoltserver.onrender.com/random');
                 const data = await res.json();
                 setRandomSkins(data);
                 swiperRef.current?.update();
@@ -199,7 +199,7 @@ const LandingPage = () => {
                                 <SwiperSlide key={index}>
                                     <div className={cl.skin_card}>
                                         <img
-                                            src={`http://localhost:3000${skin.imageUrl}`}
+                                            src={`https://skinvoltserver.onrender.com${skin.imageUrl}`}
                                             alt={`Skin ${index}`}
                                         />
                                         <div style={{ textAlign: 'center' }}>

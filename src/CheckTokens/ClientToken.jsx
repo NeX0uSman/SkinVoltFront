@@ -13,7 +13,7 @@ const ClientRoute = ({ children }) => {
             }
 
             try {
-                const res = await fetch('http://localhost:3000/client/verify', {
+                const res = await fetch('https://skinvoltserver.onrender.com/client/verify', {
                     headers: { Authorization: `Bearer ${clientToken}` }
                 })
                 setVerified(res.ok)

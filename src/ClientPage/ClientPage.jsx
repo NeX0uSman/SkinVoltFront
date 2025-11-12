@@ -113,7 +113,7 @@ const ClientPage = () => {
 
   useEffect(() => {
     const fetchAllSkins = () => {
-      fetch('http://localhost:3000/skins/all')
+      fetch('https://skinvoltserver.onrender.com/skins/all')
         .then(res => res.json())
         .then(data => setAllSkins(data))
         .catch(err => console.error('Error fetching data', err));

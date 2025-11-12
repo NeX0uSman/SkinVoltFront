@@ -69,7 +69,7 @@ const ImageCarousel = ({ images }) => {
                                 opacity: isBack ? 0.5 : 1,
                             }}
                         >
-                            <img src={`http://localhost:3000${img.imageUrl}`} alt={`Carousel item ${index}`} />
+                            <img src={`https://skinvoltserver.onrender.com${img.imageUrl}`} alt={`Carousel item ${index}`} />
                         </div>
                     )
                 })}

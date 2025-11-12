@@ -51,7 +51,7 @@ const ClientInventory = () => {
                     <h2> {activeListWindow.name}</h2>
                   </div>
                   <div className={cl.skinImage}>
-                    <img style={itemColourDefiner(activeListWindow.rarity)} src={`http://localhost:3000${activeListWindow.imageUrl}`} alt="skinImage" />
+                    <img style={itemColourDefiner(activeListWindow.rarity)} src={`https://skinvoltserver.onrender.com${activeListWindow.imageUrl}`} alt="skinImage" />
                   </div>
                   <p>{activeListWindow.float}</p>
                   <div className={cl.saleList}>

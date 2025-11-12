@@ -10,7 +10,7 @@ const AdminRoute = ({ children }) => {
             if (!adminToken) return;
 
             try {
-                const res = await fetch('http://localhost:3000/admin/verify', {
+                const res = await fetch('https://skinvoltserver.onrender.com/admin/verify', {
                     headers: { Authorization: `Bearer ${adminToken}` }
                 })
                 setVerified(res.ok)

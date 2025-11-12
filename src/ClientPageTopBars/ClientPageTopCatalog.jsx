@@ -25,7 +25,7 @@ const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCateg
     console.log(open)
     useEffect(() => {
         if (!onSelectedCategory) return
-        fetch(`http://localhost:3000/skins/category/${onSelectedCategory}`)
+        fetch(`https://skinvoltserver.onrender.com/skins/category/${onSelectedCategory}`)
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => console.log(err))
@@ -123,7 +123,7 @@ const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCateg
                         ) : (
                             filteredData.map((skin, index) => (
                                 <div key={index} className={cl.skin_container} style={itemColourDefiner(skin.rarity)}>
-                                    <img src={`http://localhost:3000${skin.imageUrl}`} alt="skin-image" />
+                                    <img src={`https://skinvoltserver.onrender.com${skin.imageUrl}`} alt="skin-image" />
                                     <p className={cl.weapon_text}>{skin.weapon} | {skin.name}</p>
                                     <p className={cl.price_text}>{skin.price}$</p>
                                 </div>
