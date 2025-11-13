@@ -88,7 +88,7 @@ const ClientRegisterPage = () => {
       } else {
         setErrors([]);
         console.log(data);
-        console.log(errors) // регистрация прошла
+        navigate('/client/login')
       }
     } catch (err) {
       console.log(err)

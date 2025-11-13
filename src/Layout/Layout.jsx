@@ -7,57 +7,58 @@ import logo from '../assets/logo2.png'
 
 const Layout = () => {
     const [loggedIn, setLoggedIn] = useState(false)
-    const [name, setName] = useState()
+    const [name, setName] = useState('')
     const [balance, setBalance] = useState(0)
     const [userSkins, setUserSkins] = useState([]);
     const [allSkins, setAllSkins] = useState([]);
     const [userData, setUserData] = useState({});
     const apiUrl = import.meta.env.VITE_API_URL;
-    useEffect(() => {
-        const fetchUserData = async () => {
-            const token = localStorage.getItem('clientToken');
-            if (!token) return;
+    const fetchUserData = async (tokenFromLogin) => {
+        const token = tokenFromLogin || localStorage.getItem('clientToken');
+        if (!token) return;
 
-            try {
-                const res = await fetch(`${apiUrl}/client/me`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (!res.ok) {
-                    // токен просрочен или невалидный
-                    localStorage.removeItem('clientToken');
-                    return;
+        try {
+            const res = await fetch(`${apiUrl}/client/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
+            });
 
-                const data = await res.json();
-                setLoggedIn(true);
-                setName(data.username);
-                setBalance(data.balance);
-                setUserData(data);
-
-                if (data.inventory && data.inventory.length > 0) {
-                    const resSkins = await fetch(`${apiUrl}/skins/getByIds`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ids: data.inventory })
-                    });
-                    const skinsData = await resSkins.json();
-                    setUserSkins(skinsData);
-                } else {
-                    setUserSkins([]);
-                }
-
-            } catch (err) {
-                console.log("Error fetching user data: ", err);
+            if (!res.ok) {
+                // токен просрочен или невалидный
+                localStorage.removeItem('clientToken');
+                return;
             }
-        };
 
+            const data = await res.json();
+            setLoggedIn(true);
+            setName(data.username || localStorage.getItem('Nickname'));
+            setBalance(data.balance);
+            setUserData(data);
+
+            if (data.inventory && data.inventory.length > 0) {
+                const resSkins = await fetch(`${apiUrl}/skins/getByIds`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: data.inventory })
+                });
+                const skinsData = await resSkins.json();
+                setUserSkins(skinsData);
+            } else {
+                setUserSkins([]);
+            }
+
+        } catch (err) {
+            console.log("Error fetching user data: ", err);
+        }
+    };
+
+    useEffect(() => {
         fetchUserData();
     }, []);
 
+    console.log(name)
     const buyItem = async (skinId, salePrice) => {
         try {
             const res = await buyForm(skinId, salePrice);
@@ -221,7 +222,8 @@ const Layout = () => {
                     setUserData,
                     unList,
                     List,
-                    itemColourDefiner
+                    itemColourDefiner,
+                    fetchUserData
                 }}>
                     <Outlet />
                 </InventoryContext.Provider>
@@ -257,7 +259,7 @@ const Layout = () => {
                             <p>Email: info@company.com</p>
                             <p>Phone: +48 123 456 789</p>
                             <p>Address: Warsaw, Poland</p>
-                            <p onClick={() => {navigate('/admin/login')}}>Admin?</p>
+                            <p onClick={() => { navigate('/admin/login') }}>Admin?</p>
                         </div>
                     </div>
                     <div className={cl.socials}>

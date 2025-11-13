@@ -9,7 +9,7 @@ import SaleLineChart from '../TOOLS/SaleLineChart.jsx';
 const ClientInventory = () => {
   const { userSkins, List, itemColourDefiner } = useContext(InventoryContext);
   const [activeListWindow, setActiveListWindow] = useState(null);
-  const [price, setPrice] = useState(null)
+  const [price, setPrice] = useState(0)
   const apiUrl = import.meta.env.VITE_API_URL;
   const reccomendedPrice = (saleHistory) => {
     const now = new Date()

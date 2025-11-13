@@ -12,5 +12,6 @@ export const InventoryContext = createContext({
     buyItem: async () => { },
     unList: async () => { },
     List: async () => { },
-    itemColourDefiner: () => { }
+    itemColourDefiner: () => { },
+    fetchUserData: async () => {}
 });

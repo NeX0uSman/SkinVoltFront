@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import cl from './ClientLoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { InventoryContext } from '../../Context/inventoryContext';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const COLORS = ["#FF3C78", "#FF9A3C", "#3CFF9A",];
-
 const WIDTH = window.innerWidth * 0.6;
 const HEIGHT = 800;
-
 const strokeWidth = 1.5;
 const radius = WIDTH / 2 - strokeWidth - 10;
-const apiUrl = import.meta.env.VITE_API_URL;
+
 const SiriEffect = () => {
   return (
     <div className={cl.siriWrapper}>
@@ -47,7 +48,7 @@ const SiriEffect = () => {
 };
 
 const ClientLoginPage = () => {
-
+  const { fetchUserData } = useContext(InventoryContext)
   const navigate = useNavigate('')
 
   useEffect(() => {
@@ -86,8 +87,9 @@ const ClientLoginPage = () => {
       } else {
         setErrors([]);
         console.log(data);
-        console.log(errors) // регистрация прошла
+        fetchUserData(data.token)
         console.log('Login successful');
+        localStorage.setItem('Nickname', data.name)
         localStorage.setItem('clientToken', data.token);
         navigate('/client');
       }
