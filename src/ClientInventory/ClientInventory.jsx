@@ -64,7 +64,7 @@ const ClientInventory = () => {
                     <SaleLineChart saleHistory={activeListWindow.saleHistory} />
                   </div>
                   <input onChange={(event) => { setPrice(event.target.value) }} value={price} type="text" placeholder="Enter your price" />
-                  <p>Reccomended price: {reccomendedPrice(activeListWindow.saleHistory)}</p>
+                  <p>Reccomended price: {reccomendedPrice(activeListWindow.saleHistory ?? [])}</p>
                   <button onClick={() => { List(activeListWindow._id, price); setActiveListWindow(null) }}>List Skin</button>
                 </div>
               </div>

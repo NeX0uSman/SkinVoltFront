@@ -9,7 +9,7 @@ const Layout = () => {
     const [loggedIn, setLoggedIn] = useState(false)
     const [name, setName] = useState('')
     const [balance, setBalance] = useState(0)
-    const [userSkins, setUserSkins] = useState( null);
+    const [userSkins, setUserSkins] = useState([]);
     const [allSkins, setAllSkins] = useState([]);
     const [userData, setUserData] = useState({});
     const apiUrl = import.meta.env.VITE_API_URL;
