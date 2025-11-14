@@ -29,12 +29,10 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
     }
 
     const rewritename = (name) => {
-        if (name.length > 9) {
-            return name.slice(0, 9) + '...'
-        } else {
-            return name
-        }
+        if (!name) return '';
+        return name.length > 9 ? name.slice(0, 9) + '...' : name;
     }
+
     return (
         <div className={cl.cardWrapper}>
             <div
@@ -54,7 +52,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                 <div className={cl.downer_note}>
                     <div className={cl.price_block}>
                         <p className={cl.skin_price}>{skin.price} $</p>
-                        <p className={cl.skin_float}>Float: {skin.float.toFixed(2)}</p>
+                        <p className={cl.skin_float}>Float: {(skin.float ?? 0).toFixed(2)}</p>
                     </div>
                 </div>
                 <p className={cl.unboxed_from}>Fever Case</p>
@@ -66,7 +64,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                         </>
                         :
                         <>
-                            <button style={{ backgroundColor: 'green' }} onClick={() => {setActiveListWindow(skin) }}>List</button>
+                            <button style={{ backgroundColor: 'green' }} onClick={() => { setActiveListWindow(skin) }}>List</button>
                         </>}
                 </div>
             </div>
