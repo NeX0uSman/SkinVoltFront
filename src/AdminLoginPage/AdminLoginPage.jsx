@@ -66,7 +66,7 @@ const ClientLoginPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${apiUrl}/client/login/send`, {
+      const res = await fetch(`${apiUrl}/admin/login/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

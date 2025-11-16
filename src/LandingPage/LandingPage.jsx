@@ -210,6 +210,8 @@ const LandingPage = () => {
                                 </SwiperSlide>
                             ))}
                         </Swiper>
+                    ) : randomSkins.length == 0 ? (
+                        <p>No skins for sale now!</p>
                     ) : (
                         <p>Loading skins...</p>
                     )}
