@@ -40,12 +40,14 @@ function App() {
     formData.append('wear', wear)
     formData.append('special', special)
 
-
+const adminToken = localStorage.getItem('adminToken')
+const clientToken = localStorage.getItem('clientToken')
+const token = adminToken || clientToken
     try {
       const res = await fetch(`${apiUrl}/skins/upload`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('clientToken')}`
+          Authorization: `Bearer ${token}`
         },
         body: formData,
       })

@@ -1,57 +1,59 @@
 import Layout from "./Layout/Layout";
 import { Routes, Route } from 'react-router-dom';
-import AdminPage from './AdminPage.jsx'
-import ClientPage from './ClientPage/ClientPage.jsx'
+import AdminPage from './AdminPage.jsx';
+import ClientPage from './ClientPage/ClientPage.jsx';
 import ProductPage from "./ProductPage/ProductPage.jsx";
 import AdminLoginPage from "./AdminLoginPage/AdminLoginPage.jsx";
-import ClientRegisterPage from './ClientAuth/ClientRegister/ClientRegisterPage.jsx'
+import AdminRegisterPage from "./AdminRegisterPage/AdminRegisterPage.jsx";
+import ClientRegisterPage from './ClientAuth/ClientRegister/ClientRegisterPage.jsx';
 import ClientLoginPage from "./ClientAuth/ClientLoginPage/ClientLoginPage.jsx";
-import ClientRoute from "./CheckTokens/ClientToken.jsx";
-import AdminRoute from "./CheckTokens/AdminToken.jsx";
+import ProtectedRoute from "./CheckTokens/ProtectedRoute.jsx";
 import LandingPage from "./LandingPage/LandingPage.jsx";
-import TestThree from './TEST/threetest.jsx';
 import BackgroundEffect from "./TOOLS/BackgroundEffect.jsx";
 import ClientInventory from "./ClientInventory/ClientInventory.jsx";
+
 function App() {
   return (
     <>
       <BackgroundEffect />
       <Routes>
-        {/* Layout применяется ко ВСЕМ маршрутам */}
         <Route path="/" element={<Layout />}>
+
           {/* 🌐 Главная страница */}
           <Route index element={<LandingPage />} />
 
           {/* 🔓 Открытые страницы */}
           <Route path="admin/login" element={<AdminLoginPage />} />
+          <Route path="admin/register" element={<AdminRegisterPage />} />
           <Route path="client/register" element={<ClientRegisterPage />} />
           <Route path="client/login" element={<ClientLoginPage />} />
 
           {/* 👤 Клиентская часть */}
           <Route path="client" element={
-            <ClientRoute>
+            <ProtectedRoute requiredRole="client">
               <ClientPage />
-            </ClientRoute>
+            </ProtectedRoute>
           } />
 
           <Route path="client/product/:id" element={
-            <ClientRoute>
+            <ProtectedRoute requiredRole="client">
               <ProductPage />
-            </ClientRoute>
+            </ProtectedRoute>
           } />
 
           <Route path="clientInventory" element={
-            <ClientRoute>
+            <ProtectedRoute requiredRole="client">
               <ClientInventory />
-            </ClientRoute>
+            </ProtectedRoute>
           } />
 
           {/* 👨‍💼 Админская страница */}
           <Route path="admin" element={
-            <AdminRoute>
+            <ProtectedRoute requiredRole="admin">
               <AdminPage />
-            </AdminRoute>
+            </ProtectedRoute>
           } />
+
         </Route>
       </Routes>
     </>

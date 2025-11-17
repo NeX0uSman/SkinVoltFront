@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import cl from './AdminLoginPage.module.css';
+import cl from './AdminRegisterPage.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const COLORS = ["#ffffffff", "#7c7c7cff", "#000000ff",];
-const apiUrl = import.meta.env.VITE_API_URL;
+const COLORS = ["#FF3C78", "#FF9A3C", "#3CFF9A",];
+
 const WIDTH = window.innerWidth * 0.6;
 const HEIGHT = 800;
 
 const strokeWidth = 1.5;
 const radius = WIDTH / 2 - strokeWidth - 10;
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const SiriEffect = () => {
   return (
     <div className={cl.siriWrapper}>
@@ -46,34 +46,38 @@ const SiriEffect = () => {
   );
 };
 
-const ClientLoginPage = () => {
+const AdminRegisterPage = () => {
 
   const navigate = useNavigate('')
 
   useEffect(() => {
-    const adminToken = localStorage.getItem('adminToken');
-    if (adminToken) {
+    const clientToken = localStorage.getItem('adminToken');
+    if (clientToken) {
       navigate('/admin');
     }
   }, [])
 
   const [errors, setErrors] = useState([]);
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
 
 
-  const handleLogIn = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${apiUrl}/admin/login/send`, {
+      const res = await fetch(`${apiUrl}/admin/register/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          name,
           email,
           password,
+          inviteCode: code
         }),
       });
 
@@ -86,10 +90,7 @@ const ClientLoginPage = () => {
       } else {
         setErrors([]);
         console.log(data);
-        console.log(errors) // регистрация прошла
-        console.log('Login successful');
-        localStorage.setItem('adminToken', data.token);
-        navigate('/client');
+        navigate('/admin/login')
       }
     } catch (err) {
       console.log(err)
@@ -100,21 +101,26 @@ const ClientLoginPage = () => {
       <SiriEffect />
       <div className={cl.wholePage}>
         <div className={cl.upperText}>
-          <p>Hi, Admin!</p>
+          <p>Register admin account</p>
+          <p>*You can only register an account by getting a code for it.*</p>
         </div>
         <div className={cl.formDiv}>
           <form>
+            <label htmlFor="nickname">Nickname</label>
+            <input value={name} onChange={(e) => { setName(e.target.value) }} name="nickname" id="nickname" required />
+            <label htmlFor="code">Code</label>
+            <input value={code} onChange={(e) => { setCode(e.target.value) }} name="code" id="code" required />
             {errors && <p>{errors.msg}</p>}
             <label htmlFor="email">Email</label>
             <input value={email} onChange={(e) => { setEmail(e.target.value) }} name="email" id="email" required />
             <label htmlFor="password">Password</label>
             <input value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" id="password" required />
             <div className={cl.registerButton}>
-              <button onClick={handleLogIn}>Log in!</button>
+              <button onClick={handleRegister}>Register</button>
             </div>
           </form>
           <div className={cl.signInDiv}>
-            <p>Contact us if you are an admin and <u>don't have an account yet</u></p>
+            <p>Already an Admin?<button onClick={() => { navigate('/admin/login') }}>Sign in</button></p>
           </div>
         </div>
       </div>
@@ -122,4 +128,4 @@ const ClientLoginPage = () => {
   );
 };
 
-export default ClientLoginPage;
+export default AdminRegisterPage;

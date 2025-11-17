@@ -7,6 +7,7 @@ const ClientRoute = ({ children }) => {
     useEffect(() => {
         const verifyToken = async () => {
             const clientToken = localStorage.getItem('clientToken');
+            
             if (!clientToken) {
                 setVerified(false);
                 return;
