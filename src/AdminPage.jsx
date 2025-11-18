@@ -40,7 +40,7 @@ function App() {
     formData.append('weapon', weapon)
     formData.append('wear', wear)
     formData.append('special', special)
-    
+
     try {
       const data = await apiFetch(`${apiUrl}/skins/upload`, {
         method: 'POST',

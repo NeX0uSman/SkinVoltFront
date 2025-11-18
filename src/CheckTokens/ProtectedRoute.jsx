@@ -9,15 +9,18 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const verify = async () => {
+            const adminToken = localStorage.getItem('adminToken')
+            const clientToken = localStorage.getItem('clientToken')
             let endpoint;
             let token;
 
             if (requiredRole === 'admin') {
                 endpoint = '/admin/verify';
-                token = localStorage.getItem('adminToken');
+                token = adminToken
             } else if (requiredRole === 'client') {
-                endpoint = '/client/verify';
-                token = localStorage.getItem('clientToken');
+                token = clientToken || adminToken
+                endpoint = token == clientToken ? '/client/verify' : '/admin/verify';
+                
             }
 
             if (!token) {
