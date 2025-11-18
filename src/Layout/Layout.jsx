@@ -4,6 +4,7 @@ import cl from './Layout.module.css'
 import { InventoryContext } from '../Context/inventoryContext';
 import buyForm from '../hooks/buyItem';
 import logo from '../assets/logo2.png'
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const Layout = () => {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -18,32 +19,23 @@ const Layout = () => {
         if (!token) return;
 
         try {
-            const res = await fetch(`${apiUrl}/client/me`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const data = await apiFetch(`${apiUrl}/client/me`, { method: 'GET' });
 
-            if (!res.ok) {
-                // токен просрочен или невалидный
+            if (data?.message === 'Failed to authenticate the token') {
                 localStorage.removeItem('clientToken');
                 return;
             }
 
-            const data = await res.json();
             setLoggedIn(true);
             setName(data.username || localStorage.getItem('Nickname'));
             setBalance(data.balance);
             setUserData(data);
 
             if (data.inventory?.length > 0) {
-                const resSkins = await fetch(`${apiUrl}/skins/getByIds`, {
+                const skinsData = await apiFetch(`${apiUrl}/skins/getByIds`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ids: data.inventory })
                 });
-                const skinsData = await resSkins.json();
                 setUserSkins(skinsData);
             } else {
                 setUserSkins([]);
@@ -63,13 +55,9 @@ const Layout = () => {
         try {
             const res = await buyForm(skinId, salePrice);
             if (res.success && res) {
-                const userRes = await fetch(`${apiUrl}/client/me`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('clientToken')}`
-                    }
+                const userData = await apiFetch(`${apiUrl}/client/me`, {
+                    method: 'GET'
                 });
-                const userData = await userRes.json();
 
                 setBalance(userData.balance);
                 setUserSkins(userData.inventory || []);
@@ -93,13 +81,9 @@ const Layout = () => {
 
     const unList = async (skinId) => {
         try {
-            const res = await fetch(`${apiUrl}/skins/unlist/${skinId}`, {
+            const data = await apiFetch(`${apiUrl}/skins/unlist/${skinId}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('clientToken')}`
-                }
             })
-            const data = await res.json();
             console.log(data, 'unlisting skin response');
         } catch (err) {
             console.log(err, 'error unlisting skin')
@@ -108,15 +92,10 @@ const Layout = () => {
 
     const List = async (skinId, skinPrice) => {
         try {
-            const res = await fetch(`${apiUrl}/skins/list/${skinId}`, {
+            const data = await apiFetch(`${apiUrl}/skins/list/${skinId}`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('clientToken')}`,
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({ price: skinPrice })
             })
-            const data = await res.json();
             console.log(data, 'listing skin response');
         } catch (err) {
             console.log(err, 'error unlisting skin')

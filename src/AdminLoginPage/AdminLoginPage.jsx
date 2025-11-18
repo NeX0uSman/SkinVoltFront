@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cl from './AdminLoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const COLORS = ["#ffffffff", "#7c7c7cff", "#000000ff",];
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -66,31 +67,18 @@ const ClientLoginPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${apiUrl}/admin/login/send`, {
+      const data = await apiFetch(`${apiUrl}/admin/login/send`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           email,
           password,
         }),
       });
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        setErrors(prev => [...prev, ...data])
-        console.log(data)
-        console.log(errors)
-      } else {
         setErrors([]);
-        console.log(data);
-        console.log(errors) // регистрация прошла
         console.log('Login successful');
         localStorage.setItem('adminToken', data.token);
         navigate('/client');
-      }
+      
     } catch (err) {
       console.log(err)
     }

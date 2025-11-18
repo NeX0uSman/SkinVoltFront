@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cl from './AdminRegisterPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const COLORS = ["#FF3C78", "#FF9A3C", "#3CFF9A",];
 
@@ -68,11 +69,8 @@ const AdminRegisterPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${apiUrl}/admin/register/send`, {
+      const data = await apiFetch(`${apiUrl}/admin/register/send`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           name,
           email,
@@ -81,17 +79,10 @@ const AdminRegisterPage = () => {
         }),
       });
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        setErrors(prev => [...prev, ...data])
-        console.log(data)
-        console.log(errors)
-      } else {
         setErrors([]);
         console.log(data);
         navigate('/admin/login')
-      }
+
     } catch (err) {
       console.log(err)
     }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 
 const ProtectedRoute = ({ children, requiredRole }) => {
@@ -8,32 +9,36 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const verify = async () => {
-            const clientToken = localStorage.getItem('clientToken');
-            const adminToken = localStorage.getItem('adminToken');
-            let token, endpoint
+            let endpoint;
+            let token;
 
-            if (requiredRole == 'admin') {
-                token = adminToken;
-                endpoint = '/admin/verify'
-            } else if (requiredRole == 'client') {
-                token = clientToken || adminToken;
-                endpoint = '/client/verify'
+            if (requiredRole === 'admin') {
+                endpoint = '/admin/verify';
+                token = localStorage.getItem('adminToken');
+            } else if (requiredRole === 'client') {
+                endpoint = '/client/verify';
+                token = localStorage.getItem('clientToken');
             }
 
+            if (!token) {
+                setVerified(false);
+                return;
+            }
 
             try {
-                const res = await fetch(`${apiUrl}${endpoint}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                })
-                setVerified(res.ok)
+                await apiFetch(`${apiUrl}${endpoint}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setVerified(true);
             } catch (err) {
-                setVerified(false)
+                setVerified(false);
             }
-
-
         }
-        verify()
-    }, [requiredRole, apiUrl])
+
+        verify();
+    }, [requiredRole, apiUrl]);
 
     if (verified === null) return <div>Loading...</div>;
     if (!verified) {

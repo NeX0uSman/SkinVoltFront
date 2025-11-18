@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const ClientRoute = ({ children }) => {
     const [verified, setVerified] = useState(null)
@@ -14,9 +15,7 @@ const ClientRoute = ({ children }) => {
             }
 
             try {
-                const res = await fetch(`${apiUrl}/client/verify`, {
-                    headers: { Authorization: `Bearer ${clientToken}` }
-                })
+                const res = await apiFetch(`${apiUrl}/client/verify`, {})
                 setVerified(res.ok)
             } catch (err) {
                 setVerified(false)

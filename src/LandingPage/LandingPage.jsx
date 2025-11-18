@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 // import required modules
 import { Mousewheel, Pagination } from 'swiper/modules';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch.js';
 
 const LandingPage = () => {
     const [randomSkins, setRandomSkins] = React.useState([]);
@@ -66,8 +67,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchRandomSkins = async () => {
             try {
-                const res = await fetch(`${apiUrl}/random`);
-                const data = await res.json();
+                const data = await apiFetch(`${apiUrl}/random`);
                 setRandomSkins(data);
                 swiperRef.current?.update();
             } catch (err) {

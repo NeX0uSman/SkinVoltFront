@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import cl from './ClientLoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { InventoryContext } from '../../Context/inventoryContext';
+import { apiFetch } from '../../TOOLS/apiFetch/apiFetch';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -67,32 +68,21 @@ const ClientLoginPage = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch(`${apiUrl}/client/login/send`, {
+      const data = await apiFetch(`${apiUrl}/client/login/send`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           email,
           password,
         }),
       });
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        setErrors(prev => [...prev, ...data])
-        console.log(data)
-        console.log(errors)
-      } else {
-        setErrors([]);
-        console.log(data);
-        fetchUserData(data.token)
-        console.log('Login successful');
-        localStorage.setItem('Nickname', data.name)
-        localStorage.setItem('clientToken', data.token);
-        navigate('/client');
-      }
+      setErrors([]);
+      console.log(data);
+      fetchUserData(data.token)
+      console.log('Login successful');
+      localStorage.setItem('Nickname', data.name)
+      localStorage.setItem('clientToken', data.token);
+      navigate('/client');
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }

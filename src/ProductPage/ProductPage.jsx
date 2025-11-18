@@ -3,15 +3,18 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import cl from './ProductPage.module.css'
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch'
 
 const ProductPage = () => {
     const { id } = useParams()
     const [skin, setSkin] = useState()
     const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
-        fetch(`${apiUrl}/skins/${id}`)
-            .then(res => res.json())
-            .then(data => setSkin(data))
+        const productFind = async () => {
+            const skin = await apiFetch(`${apiUrl}/skins/${id}`)
+            setSkin(skin)
+        }
+        productFind()
     }, [id])
     /*const skinData = skin.skinData;*///change after adding saleHistory
     const itemColourDefiner = (rarity) => {
@@ -77,7 +80,7 @@ const ProductPage = () => {
                         <p>Rarity: {skin.rarity}</p>
                         <p>Wear: {skin.wear}</p>
                         <p>Price: {skin.price} $</p>
-                        
+
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import cl from './App.module.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemCard from './itemCard/ItemCard.jsx';
+import { apiFetch } from './TOOLS/apiFetch/apiFetch.js';
 
 
 function App() {
@@ -39,20 +40,12 @@ function App() {
     formData.append('weapon', weapon)
     formData.append('wear', wear)
     formData.append('special', special)
-
-const adminToken = localStorage.getItem('adminToken')
-const clientToken = localStorage.getItem('clientToken')
-const token = adminToken || clientToken
+    
     try {
-      const res = await fetch(`${apiUrl}/skins/upload`, {
+      const data = await apiFetch(`${apiUrl}/skins/upload`, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
         body: formData,
       })
-
-      const data = await res.json();
 
       const newNote = data.skin
 
@@ -66,14 +59,10 @@ const token = adminToken || clientToken
 
   const deleteNote = async (id) => {
     try {
-      const res = await fetch(`${apiUrl}/skins/delete/${id}`, {
+      const res = await apiFetch(`${apiUrl}/skins/delete/${id}`, {
         method: 'DELETE',
       })
-      if (res.ok) {
         setNotes(prevNotes => prevNotes.filter(note => note._id !== id))
-      } else {
-        console.log('ti dalbaeb')
-      }
 
     } catch (err) {
       console.log(err)

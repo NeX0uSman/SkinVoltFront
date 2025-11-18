@@ -8,6 +8,7 @@ import ClientPageTopCatalog from '../ClientPageTopBars/ClientPageTopCatalog';
 import ItemCard from '../itemCard/ItemCard.jsx';
 import { InventoryContext } from '../Context/inventoryContext';
 import { useContext } from 'react';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch.js';
 
 const ClientPage = () => {
   const { allSkins, setAllSkins } = useContext(InventoryContext);
@@ -112,11 +113,9 @@ const ClientPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAllSkins = () => {
-      fetch(`${apiUrl}/skins/all`)
-        .then(res => res.json())
-        .then(data => setAllSkins(data))
-        .catch(err => console.error('Error fetching data', err));
+    const fetchAllSkins = async () => {
+      const data = await apiFetch(`${apiUrl}/skins/all`)
+      setAllSkins(data)
     }
     console.log(allSkins);
     fetchAllSkins();

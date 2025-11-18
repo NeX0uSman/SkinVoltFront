@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const AdminRoute = ({ children }) => {
     const [verified, setVerified] = useState(null)
@@ -10,9 +11,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
             if (!adminToken) return;
 
             try {
-                const res = await fetch(`${apiUrl}/admin/verify`, {
-                    headers: { Authorization: `Bearer ${adminToken}` }
-                })
+                const res = await apiFetch(`${apiUrl}/admin/verify`, {})
                 setVerified(res.ok)
             } catch (err) {
                 setVerified(false)

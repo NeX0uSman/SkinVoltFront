@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import cl from './ClientPageTopCatalog.module.css'
+import { apiFetch } from '../TOOLS/apiFetch/apiFetch';
 
 const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCategory }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -23,13 +24,14 @@ const ClientPageTopCatalog = ({ categories, onSelectedCategory, setSelectedCateg
         }
     }
     console.log(open)
+    
     useEffect(() => {
         if (!onSelectedCategory) return
-        fetch(`${apiUrl}/skins/category/${onSelectedCategory}`)
-            .then(res => res.json())
-            .then(data => setData(data))
-            .catch(err => console.log(err))
-
+        const selectedCategory = async () => {
+            const data = await apiFetch(`${apiUrl}/skins/category/${onSelectedCategory}`)
+            setData(data)
+        }
+        selectedCategory()
     }, [onSelectedCategory])
 
     const itemColourDefiner = (rarity) => {
