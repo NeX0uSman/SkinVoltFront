@@ -79,6 +79,7 @@ const Layout = () => {
         setUserSkins([]);
         setAllSkins([]);
         localStorage.removeItem('clientToken');
+        localStorage.removeItem('adminToken')
         localStorage.removeItem('username');
     };
 
