@@ -15,39 +15,29 @@ const Layout = () => {
     const [userData, setUserData] = useState({});
     const apiUrl = import.meta.env.VITE_API_URL;
     const fetchUserData = async () => {
-        const adminToken = localStorage.getItem('adminToken');
-        const clientToken = localStorage.getItem('clientToken');
 
         try {
-            if (adminToken) {
-                
-                setUserData(await apiFetch(`${apiUrl}/admin/me`));
-            } else if (clientToken) {
-                
-                setUserData(await apiFetch(`${apiUrl}/admin/me`));
-            } else {
-                console.warn("No tokens found.");
-                return;
-            }
+            let data = null
 
-            if (!userData) return;
+            data = await apiFetch(`${apiUrl}/me`, {
+                method: 'GET'
+            })
 
-           
-            if (userData?.message === 'Failed to authenticate the token') {
-                if (clientToken) localStorage.removeItem('clientToken');
-                if (adminToken) localStorage.removeItem('adminToken');
+            if (data?.message === 'Failed to authenticate the token') {
+                localStorage.removeItem('clientToken');
+                localStorage.removeItem('adminToken');
                 return;
             }
 
             setLoggedIn(true);
-            setName(userData.username || localStorage.getItem('Nickname'));
-            setBalance(userData.balance);
-            setUserData(userData);
+            setName(data.name || localStorage.getItem('name'));
+            setBalance(data.balance);
+            setUserData(data);
 
-            if (userData.inventory?.length > 0) {
+            if (data.inventory?.length > 0) {
                 const skinsData = await apiFetch(`${apiUrl}/skins/getByIds`, {
                     method: 'POST',
-                    body: JSON.stringify({ ids: userData.inventory })
+                    body: JSON.stringify({ ids: data.inventory })
                 });
                 setUserSkins(skinsData);
             } else {
@@ -68,7 +58,7 @@ const Layout = () => {
         try {
             const res = await buyForm(skinId, salePrice);
             if (res.success && res) {
-                const userData = await apiFetch(`${apiUrl}/client/me`, {
+                const userData = await apiFetch(`${apiUrl}/me`, {
                     method: 'GET'
                 });
 
