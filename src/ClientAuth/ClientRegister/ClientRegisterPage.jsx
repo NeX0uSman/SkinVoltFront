@@ -52,10 +52,24 @@ const ClientRegisterPage = () => {
   const navigate = useNavigate('')
 
   useEffect(() => {
-    const clientToken = localStorage.getItem('clientToken');
-    if (clientToken) {
-      navigate('/client');
+    const checkTokens = async () => {
+      try {
+        const data = await apiFetch(`${apiUrl}/client/verify`, {
+          method: 'GET'
+        })
+
+        if (data?.message == 'Failed to authenticate the token') {
+          localStorage.removeItem('clientToken')
+          localStorage.removeItem('adminToken')
+          return
+        }
+
+        navigate('/client')
+      } catch (err) {
+        console.log('Error in clientregisterpage checkTokens() func', err)
+      }
     }
+    checkTokens()
   }, [])
 
   const [errors, setErrors] = useState([]);
@@ -77,9 +91,9 @@ const ClientRegisterPage = () => {
         }),
       });
 
-        setErrors([]);
-        console.log(data);
-        navigate('/client/login')
+      setErrors([]);
+      console.log(data);
+      navigate('/client/login')
     } catch (err) {
       console.log(err)
     }

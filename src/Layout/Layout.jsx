@@ -14,27 +14,40 @@ const Layout = () => {
     const [allSkins, setAllSkins] = useState([]);
     const [userData, setUserData] = useState({});
     const apiUrl = import.meta.env.VITE_API_URL;
-    const fetchUserData = async (tokenFromLogin) => {
-        const token = tokenFromLogin || localStorage.getItem('clientToken');
-        if (!token) return;
+    const fetchUserData = async () => {
+        const adminToken = localStorage.getItem('adminToken');
+        const clientToken = localStorage.getItem('clientToken');
 
         try {
-            const data = await apiFetch(`${apiUrl}/client/me`, { method: 'GET' });
+            if (adminToken) {
+                
+                setUserData(await apiFetch(`${apiUrl}/admin/me`));
+            } else if (clientToken) {
+                
+                setUserData(await apiFetch(`${apiUrl}/admin/me`));
+            } else {
+                console.warn("No tokens found.");
+                return;
+            }
 
-            if (data?.message === 'Failed to authenticate the token') {
-                localStorage.removeItem('clientToken');
+            if (!userData) return;
+
+           
+            if (userData?.message === 'Failed to authenticate the token') {
+                if (clientToken) localStorage.removeItem('clientToken');
+                if (adminToken) localStorage.removeItem('adminToken');
                 return;
             }
 
             setLoggedIn(true);
-            setName(data.username || localStorage.getItem('Nickname'));
-            setBalance(data.balance);
-            setUserData(data);
+            setName(userData.username || localStorage.getItem('Nickname'));
+            setBalance(userData.balance);
+            setUserData(userData);
 
-            if (data.inventory?.length > 0) {
+            if (userData.inventory?.length > 0) {
                 const skinsData = await apiFetch(`${apiUrl}/skins/getByIds`, {
                     method: 'POST',
-                    body: JSON.stringify({ ids: data.inventory })
+                    body: JSON.stringify({ ids: userData.inventory })
                 });
                 setUserSkins(skinsData);
             } else {

@@ -52,10 +52,23 @@ const AdminRegisterPage = () => {
   const navigate = useNavigate('')
 
   useEffect(() => {
-    const clientToken = localStorage.getItem('adminToken');
-    if (clientToken) {
-      navigate('/admin');
+    const checkTokens = async () => {
+      try {
+        const data = await apiFetch(`${apiUrl}/admin/verify`, {
+          method: 'GET'
+        })
+
+        if (data?.message == 'Failed to authenticate the token') {
+          localStorage.removeItem('adminToken')
+          return
+        }
+
+        navigate('/admin')
+      } catch (err) {
+        console.log('Error in adminregisterpage checkTokens() func', err)
+      }
     }
+    checkTokens()
   }, [])
 
   const [errors, setErrors] = useState([]);

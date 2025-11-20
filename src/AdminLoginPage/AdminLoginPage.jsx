@@ -52,10 +52,23 @@ const ClientLoginPage = () => {
   const navigate = useNavigate('')
 
   useEffect(() => {
-    const adminToken = localStorage.getItem('adminToken');
-    if (adminToken) {
-      navigate('/admin');
+    const checkTokens = async () => {
+      try {
+        const data = await apiFetch(`${apiUrl}/admin/verify`, {
+          method: 'GET'
+        })
+
+        if (data?.message == 'Failed to authenticate the token') {
+          localStorage.removeItem('adminToken')
+          return
+        }
+
+        navigate('/admin')
+      } catch (err) {
+        console.log('Error in adminloginpage checkTokens() func', err)
+      }
     }
+    checkTokens()
   }, [])
 
   const [errors, setErrors] = useState([]);
