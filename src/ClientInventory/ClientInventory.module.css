@@ -2,13 +2,13 @@
     margin-top: 100px;
     height: 100vh;
     display: grid;
-    grid-template-columns: repeat(8, minmax(150px, 1fr));
+    grid-template-columns: repeat(8, minmax(150px, 450px));
     gap: 15px;
 }
 
 
 .inventory_container>div {
-    min-height: 450px;
+    max-height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -13,6 +13,7 @@ const Layout = () => {
     const [userSkins, setUserSkins] = useState([]);
     const [allSkins, setAllSkins] = useState([]);
     const [userData, setUserData] = useState({});
+    const [role, setRole] = useState('')
     const apiUrl = import.meta.env.VITE_API_URL;
     const fetchUserData = async () => {
 
@@ -31,6 +32,7 @@ const Layout = () => {
 
             setLoggedIn(true);
             setName(data.name || localStorage.getItem('name'));
+            setRole(data.role)
             setBalance(data.balance);
             setUserData(data);
 
@@ -175,7 +177,7 @@ const Layout = () => {
                             <>
                                 <div className={cl.row}>
                                     <p style={{ color: 'white' }}>{`${balance}$`}</p>
-                                    <p style={{ color: 'orange' }}>{name}</p>
+                                    <p className={role == "admin" ? cl.admin : cl.client}>{name}</p>
                                     <i className="ph ph-user" style={{ color: 'white', fontSize: '35px' }}></i>
                                     <button onClick={logout}><i style={{ color: 'white', fontSize: '25px' }} className="ph ph-sign-out"></i></button>
                                 </div>

@@ -102,7 +102,7 @@
 
 .catalog_container {
     display: grid;
-    grid-template-columns: repeat(8, minmax(150px, 1fr));
+    grid-template-columns: repeat(7, minmax(150px, 450px));
     gap: 15px;
 }
 

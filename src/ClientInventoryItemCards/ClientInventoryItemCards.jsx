@@ -3,7 +3,7 @@ import cl from './ClientInventoryItemCards.module.css'
 import { useNavigate } from 'react-router-dom';
 import { InventoryContext } from '../Context/inventoryContext';
 
-const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWindow }) => {
+const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWindow, listShow }) => {
     const navigate = useNavigate();
     const apiUrl = import.meta.env.VITE_API_URL;
     const { buyItem, userData, setUserData, unList, List, itemColourDefiner } = useContext(InventoryContext);
@@ -36,7 +36,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
     return (
         <div className={cl.cardWrapper}>
             <div
-                className={`${cl.skin_container} ${unlistShow ? cl.blurred : ''}`}
+                className={`${cl.skin_container} ${unlistShow || listShow ? cl.blurred : ''}`}
                 style={itemColourDefiner(skin.rarity)}
             >
                 <div className={cl.upper_note}>
@@ -68,7 +68,8 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                         </>}
                 </div>
             </div>
-            {unlistShow && <p className={cl.successText} style={{ color: 'white', marginTop: '10px' }}>Skin unlisted successfully!</p>}
+            {unlistShow && <p className={cl.successText} style={{ color: 'white' }}>Skin unlisted successfully!</p>}
+            {listShow && <p className={cl.successText} style={{ color: 'white' }}>Skin listed successfully!</p>}
         </div>
     )
 }

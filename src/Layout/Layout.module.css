@@ -227,3 +227,11 @@ sup {
     gap: 10px;
     justify-content: center;
 }
+
+.admin {
+    color:red;
+}
+
+.client {
+    color:orange;
+}

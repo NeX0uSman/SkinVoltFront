@@ -5,6 +5,8 @@
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 7px rgba(105, 105, 105, 0.6);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .skin_container:hover {
@@ -119,4 +121,28 @@
     transform: scale(1.07);
     transform: translateY(-7px);
     cursor: pointer;
+}
+
+.cardWrapper {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.blurred {
+    filter: blur(2px);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.successText {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 2;
 }

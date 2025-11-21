@@ -10,6 +10,7 @@ const ClientInventory = () => {
   const { userSkins, List, itemColourDefiner } = useContext(InventoryContext);
   const [activeListWindow, setActiveListWindow] = useState(null);
   const [price, setPrice] = useState(0)
+  const [listShow, setListShow] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
   const reccomendedPrice = (saleHistory) => {
     const now = new Date()
@@ -27,6 +28,7 @@ const ClientInventory = () => {
     return averagePrice;
 
   } //reccomended price based on last 3 days of sales
+ 
   return (
     <div style={{ color: 'white' }}>
       {userSkins.length === 0 ? (
@@ -39,6 +41,7 @@ const ClientInventory = () => {
                 key={index}
                 activeListWindow={activeListWindow}
                 setActiveListWindow={setActiveListWindow}
+                listShow={listShow}
               />
             ))}
           </div>
@@ -65,7 +68,7 @@ const ClientInventory = () => {
                   </div>
                   <input onChange={(event) => { setPrice(event.target.value) }} value={price} type="text" placeholder="Enter your price" />
                   <p>Reccomended price: {reccomendedPrice(activeListWindow.saleHistory ?? [])}</p>
-                  <button onClick={() => { List(activeListWindow._id, price); setActiveListWindow(null) }}>List Skin</button>
+                  <button onClick={() => { List(activeListWindow._id, price); setActiveListWindow(null); setListShow(true) }}>List Skin</button>
                 </div>
               </div>
             </div>
