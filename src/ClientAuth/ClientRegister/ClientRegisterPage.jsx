@@ -64,7 +64,6 @@ const ClientRegisterPage = () => {
           return
         }
 
-        navigate('/client')
       } catch (err) {
         console.log('Error in clientregisterpage checkTokens() func', err)
       }

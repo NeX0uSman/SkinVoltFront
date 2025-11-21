@@ -63,7 +63,6 @@ const ClientLoginPage = () => {
           return
         }
 
-        navigate('/admin')
       } catch (err) {
         console.log('Error in adminloginpage checkTokens() func', err)
       }
@@ -87,11 +86,11 @@ const ClientLoginPage = () => {
           password,
         }),
       });
-        setErrors([]);
-        console.log('Login successful');
-        localStorage.setItem('adminToken', data.token);
-        navigate('/client');
-      
+      setErrors([]);
+      console.log('Login successful');
+      localStorage.setItem('adminToken', data.token);
+      navigate('/client');
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }

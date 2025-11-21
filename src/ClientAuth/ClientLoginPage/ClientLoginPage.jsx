@@ -65,7 +65,6 @@ const ClientLoginPage = () => {
           return
         }
 
-        navigate('/client')
       } catch (err) {
         console.log('Error in clientloginpage checkTokens() func', err)
       }

@@ -63,7 +63,6 @@ const AdminRegisterPage = () => {
           return
         }
 
-        navigate('/admin')
       } catch (err) {
         console.log('Error in adminregisterpage checkTokens() func', err)
       }

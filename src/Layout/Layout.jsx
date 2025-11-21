@@ -54,19 +54,19 @@ const Layout = () => {
     }, []);
 
     console.log(name)
+
     const buyItem = async (skinId, salePrice) => {
         try {
             const res = await buyForm(skinId, salePrice);
-            if (res.success && res) {
-                const userData = await apiFetch(`${apiUrl}/me`, {
-                    method: 'GET'
-                });
+            if (!res.success && res) return;
 
-                setBalance(userData.balance);
-                setUserSkins(userData.inventory || []);
-                console.log(userSkins, 'updated user skins after purchase');
-                setAllSkins(prev => prev.filter(s => s._id !== skinId));
-            }
+            const user = await apiFetch(`${apiUrl}/me`, { method: 'GET' });
+
+            setBalance(user.balance);
+            const skins = await apiFetch(`${apiUrl}/skins/getByIds`, { method: 'POST' })
+
+            setUserSkins(skins);
+            setAllSkins(prev => prev.filter(s => s._id !== skinId));
         } catch (err) {
             console.log(err)
         }
@@ -80,7 +80,7 @@ const Layout = () => {
         setAllSkins([]);
         localStorage.removeItem('clientToken');
         localStorage.removeItem('adminToken')
-        localStorage.removeItem('username');
+        localStorage.removeItem('Nickname');
     };
 
     const unList = async (skinId) => {
