@@ -3,17 +3,16 @@ import cl from './ClientInventoryItemCards.module.css'
 import { useNavigate } from 'react-router-dom';
 import { InventoryContext } from '../Context/inventoryContext';
 
-const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWindow, listShow }) => {
+const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWindow, listingActionPerformedON }) => {
     const navigate = useNavigate();
     const apiUrl = import.meta.env.VITE_API_URL;
     const { buyItem, userData, setUserData, unList, List, itemColourDefiner } = useContext(InventoryContext);
-    const isOwner = (
-        skin.ownerId?._id?.toString?.() === userData?._id?.toString?.() ||
-        skin.ownerId?.toString?.() === userData?._id?.toString?.()
-    );
-    const isListed = skin.status === 'selling';
     const [unlistShow, setUnlistShow] = useState(false);
-    const isListWindowOpen = activeListWindow === skin._id;
+
+
+    const isListed = skin.status === 'selling';
+    const isListedClickedArray = listingActionPerformedON.includes(skin._id);
+
     const checkWhichSpecial = (special) => {
         if (special == 'StatTrak™') {
             return {
@@ -36,7 +35,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
     return (
         <div className={cl.cardWrapper}>
             <div
-                className={`${cl.skin_container} ${unlistShow || listShow ? cl.blurred : ''}`}
+                className={`${cl.skin_container} ${unlistShow || isListedClickedArray ? cl.blurred : ''}`}
                 style={itemColourDefiner(skin.rarity)}
             >
                 <div className={cl.upper_note}>
@@ -52,7 +51,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                 <div className={cl.downer_note}>
                     <div className={cl.price_block}>
                         <p className={cl.skin_price}>{skin.price} $</p>
-                        <p className={cl.skin_float}>Float: {(skin.float ?? 0).toFixed(2)}</p>
+                        <p className={cl.skin_float}>Float: {(skin.float ?? 0).toFixed(6)}</p>
                     </div>
                 </div>
                 <p className={cl.unboxed_from}>Fever Case</p>
@@ -69,7 +68,7 @@ const ClientInventoryItemCards = ({ skin, key, activeListWindow, setActiveListWi
                 </div>
             </div>
             {unlistShow && <p className={cl.successText} style={{ color: 'white' }}>Skin unlisted successfully!</p>}
-            {listShow && <p className={cl.successText} style={{ color: 'white' }}>Skin listed successfully!</p>}
+            {isListedClickedArray && <p className={cl.successText} style={{ color: 'white' }}>Skin listed successfully!</p>}
         </div>
     )
 }

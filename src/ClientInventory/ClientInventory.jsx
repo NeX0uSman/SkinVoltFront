@@ -10,8 +10,11 @@ const ClientInventory = () => {
   const { userSkins, List, itemColourDefiner } = useContext(InventoryContext);
   const [activeListWindow, setActiveListWindow] = useState(null);
   const [price, setPrice] = useState(0)
-  const [listShow, setListShow] = useState(false);
+
+  const [listingActionPerformedON, setListingActionPerformedON] = useState([]);
+
   const apiUrl = import.meta.env.VITE_API_URL;
+
   const reccomendedPrice = (saleHistory) => {
     const now = new Date()
     const threeDaysAgo = new Date(now)
@@ -21,18 +24,21 @@ const ClientInventory = () => {
       const saleDate = new Date(sale.date)
       return saleDate >= threeDaysAgo && saleDate <= now;
     })
+
     if (recentSales.length == 0) return 0;
-    console.log(recentSales)
+
     const averagePrice = recentSales.reduce((sum, sale) => sum + sale.price, 0) / recentSales.length;
-    console.log(averagePrice)
+
     return averagePrice;
 
   } //reccomended price based on last 3 days of sales
- 
+
   return (
     <div style={{ color: 'white' }}>
       {userSkins.length === 0 ? (
-        <p>Your inventory is empty.</p>
+        <div className={cl.empty}>
+          <p>Your inventory is empty.</p>
+        </div>
       ) : (
         <>
           <div className={cl.inventory_container}>
@@ -41,7 +47,7 @@ const ClientInventory = () => {
                 key={index}
                 activeListWindow={activeListWindow}
                 setActiveListWindow={setActiveListWindow}
-                listShow={listShow}
+                listingActionPerformedON={listingActionPerformedON}
               />
             ))}
           </div>
@@ -68,7 +74,12 @@ const ClientInventory = () => {
                   </div>
                   <input onChange={(event) => { setPrice(event.target.value) }} value={price} type="text" placeholder="Enter your price" />
                   <p>Reccomended price: {reccomendedPrice(activeListWindow.saleHistory ?? [])}</p>
-                  <button onClick={() => { List(activeListWindow._id, price); setActiveListWindow(null); setListShow(true) }}>List Skin</button>
+                  <button onClick={() => {
+                    List(activeListWindow._id, price);
+                    setActiveListWindow(null);
+                    setListingActionPerformedON(prev => [...prev, activeListWindow._id])
+                  }
+                  }>List Skin</button>
                 </div>
               </div>
             </div>

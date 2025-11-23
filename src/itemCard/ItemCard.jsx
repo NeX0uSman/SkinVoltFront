@@ -52,7 +52,7 @@ const ItemCard = ({ skin, key }) => {
                 <div className={cl.downer_note}>
                     <div className={cl.price_block}>
                         <p className={cl.skin_price}>{skin.price} $</p>
-                        <p className={cl.skin_float}>Float: {skin.float.toFixed(2)}</p>
+                        <p className={cl.skin_float}>Float: {skin.float.toFixed(6)}</p>
                     </div>
                 </div>
                 <p className={cl.unboxed_from}>Fever Case</p>

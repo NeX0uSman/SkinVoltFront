@@ -59,7 +59,7 @@
 .price_block {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     margin-top: 8px;
     margin-bottom: 12px;
 }

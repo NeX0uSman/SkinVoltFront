@@ -1,13 +1,11 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cl from './ClientPage.module.css';
 import { Range } from 'react-range';
 import ClientPageTopCatalog from '../ClientPageTopBars/ClientPageTopCatalog';
 import ItemCard from '../itemCard/ItemCard.jsx';
 import { InventoryContext } from '../Context/inventoryContext';
-import { useContext } from 'react';
 import { apiFetch } from '../TOOLS/apiFetch/apiFetch.js';
 
 const ClientPage = () => {
@@ -319,66 +317,62 @@ const ClientPage = () => {
                     'Exceedingly Rare',
                     'Contraband',
                   ].map((label) => (
-                    <span className={cl.row} key={label}>
+                    <label key={label} className={cl.customCheckbox}>
                       <input
                         type="checkbox"
-                        id={label}
                         value={label}
-                        onChange={(e) => handleRarityChange(e)}
+                        onChange={handleRarityChange}
+                        checked={desiredRarity.includes(label)}
                       />
-                      <label htmlFor={label}>{label}</label>
-                    </span>
+                      <span className={cl.checkmark}></span>
+                      {label}
+                    </label>
                   ))}
                 </div>
               </div>
               <div className={cl.special_container}>
                 <p>Special</p>
                 <div className={cl.special_inner_container}>
-                  <span className={cl.row}>
-                    <input
-                      type="checkbox"
-                      id="souvenir"
-                      value="Souvenir"
-                      onChange={(e) => handleSpecialChange(e)}
-                    />
-                    <label htmlFor="souvenir">Souvenir</label>
-                  </span>
-                  <span className={cl.row}>
-                    <input
-                      type="checkbox"
-                      id="stattrak"
-                      value="StatTrak™"
-                      onChange={(e) => handleSpecialChange(e)}
-                    />
-                    <label htmlFor="stattrak">StatTrak™</label>
-                  </span>
+                  {['Souvenir', 'StatTrak™'].map((special) => (
+                    <label key={special} className={cl.customCheckbox}>
+                      <input
+                        type="checkbox"
+                        value={special}
+                        checked={desiredSpecial.includes(special)}
+                        onChange={(e) => handleSpecialChange(e)}
+                      />
+                      <span className={cl.checkmark}></span>
+                      {special}
+                    </label>
+                  ))}
                 </div>
               </div>
-              <div>
+              <div className={cl.collections_wrapper}>
                 <p>Collections</p>
                 <div className={cl.collections_container} style={{
                   maxHeight: '300px',
                   overflowY: 'auto',
                   border: '1px solid #ccc',
                   padding: '10px',
-                  width: '300px',
+                  width: '90%',
                   fontSize: '12px'
                 }}>
                   {allCollections.map((collection, index) => {
-                    return <label key={index} style={{ display: 'block' }}>
+                    return <label key={index} className={cl.customCheckbox}>
                       <input
                         type="checkbox"
                         value={collection}
                         checked={desiredCollection.includes(collection)}
                         onChange={(e) => {
                           const value = e.target.value;
-                          setDesiredCollection((prev) =>
+                          setDesiredCollection(prev =>
                             prev.includes(value)
-                              ? prev.filter((v) => v !== value)
+                              ? prev.filter(v => v !== value)
                               : [...prev, value]
                           );
                         }}
                       />
+                      <span className={cl.checkmark}></span>
                       {collection}
                     </label>
                   })}

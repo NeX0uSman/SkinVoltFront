@@ -82,18 +82,30 @@ const Layout = () => {
         localStorage.removeItem('clientToken');
         localStorage.removeItem('adminToken')
         localStorage.removeItem('Nickname');
+        navigate('/client/login')
     };
 
     const unList = async (skinId) => {
         try {
             const data = await apiFetch(`${apiUrl}/skins/unlist/${skinId}`, {
-                method: 'DELETE',
+                method: 'POST',
             })
-            console.log(data, 'unlisting skin response');
+            console.log(`Unlisting skin with id ${data._id}...`);
         } catch (err) {
-            console.log(err, 'error unlisting skin')
+            console.log(err, 'An error occured when unlisting the skin...')
         }
     }
+
+    const deleteSkin = async (skinId) => {
+        try {
+            const data = await apiFetch(`${apiUrl}/skins/delete/${skinId}`, {
+                method: 'DELETE',
+            })
+            console.log(`Deleted skin with ${data._id}...`);
+        } catch (err) {
+            console.log(err, 'An error occured when deleting the skin...')
+        }
+    } //added admin functionality(deleting)
 
     const List = async (skinId, skinPrice) => {
         try {
@@ -106,6 +118,7 @@ const Layout = () => {
             console.log(err, 'error unlisting skin')
         }
     }
+    
     const itemColourDefiner = (rarity) => {
         switch (rarity) {
             case 'Consumer Grade':
