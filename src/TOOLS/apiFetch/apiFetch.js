@@ -19,9 +19,6 @@ export const apiFetch = async (url, options = {}) => {
     });
 
     if (res.status === 403 || res.status === 401) {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('clientToken');
-
         return { failed: true };
     }
 

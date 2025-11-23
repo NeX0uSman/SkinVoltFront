@@ -25,6 +25,8 @@ const Layout = () => {
             })
 
             if (data.failed) {
+                localStorage.removeItem('adminToken');
+                localStorage.removeItem('clientToken');
                 setLoggedIn(false)
                 return;
             }
@@ -118,7 +120,7 @@ const Layout = () => {
             console.log(err, 'error unlisting skin')
         }
     }
-    
+
     const itemColourDefiner = (rarity) => {
         switch (rarity) {
             case 'Consumer Grade':
