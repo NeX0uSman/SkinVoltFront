@@ -24,9 +24,8 @@ const Layout = () => {
                 method: 'GET'
             })
 
-            if (data?.message === 'Failed to authenticate the token') {
-                localStorage.removeItem('clientToken');
-                localStorage.removeItem('adminToken');
+            if (data.failed) {
+                setLoggedIn(false)
                 return;
             }
 

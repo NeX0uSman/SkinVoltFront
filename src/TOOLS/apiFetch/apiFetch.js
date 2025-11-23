@@ -8,7 +8,7 @@ export const apiFetch = async (url, options = {}) => {
         ...(token ? { Authorization: `Bearer ${token}` } : {})
     }
 
-    // Если отправляем JSON — ставим Content-Type
+    // Если отправляем JSON ставим Content-Type
     if (!(options.body instanceof FormData)) {
         headers['Content-Type'] = 'application/json'
     }
@@ -17,6 +17,13 @@ export const apiFetch = async (url, options = {}) => {
         ...options,
         headers
     });
+
+    if (res.status === 403 || res.status === 401) {
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('clientToken');
+
+        return { failed: true };
+    }
 
     return res.json();
 }
